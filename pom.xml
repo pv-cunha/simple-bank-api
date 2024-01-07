@@ -9,10 +9,10 @@
 		<version>2.1.3.RELEASE</version>
 	</parent>
 
-	<groupId>com.simplebank</groupId>
-	<artifactId>simplebank</artifactId>
+	<groupId>com.simplebankworker</groupId>
+	<artifactId>simplebankworker</artifactId>
 	<version>0.0.1</version>
-	<name>Simple Bank</name>
+	<name>Simple Bank Worker</name>
 	<description>A Simple Bank Project</description>
 
 	<properties>

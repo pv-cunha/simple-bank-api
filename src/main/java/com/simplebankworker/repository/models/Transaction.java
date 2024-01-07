@@ -1,4 +1,4 @@
-package com.simplebank.repository.models;
+package com.simplebankworker.repository.models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
