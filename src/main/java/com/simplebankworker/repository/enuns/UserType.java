@@ -1,4 +1,4 @@
-package com.simplebank.repository.enuns;
+package com.simplebankworker.repository.enuns;
 
 public enum UserType {
 

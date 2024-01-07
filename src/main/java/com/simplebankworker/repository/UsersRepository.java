@@ -1,6 +1,6 @@
-package com.simplebank.repository;
+package com.simplebankworker.repository;
 
-import com.simplebank.repository.models.User;
+import com.simplebankworker.repository.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
