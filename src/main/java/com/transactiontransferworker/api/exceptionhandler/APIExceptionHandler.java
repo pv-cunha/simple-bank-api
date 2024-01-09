@@ -3,6 +3,8 @@ package com.transactiontransferworker.api.exceptionhandler;
 import com.transactiontransferworker.api.dtos.ResponseDTO;
 import com.transactiontransferworker.api.messages.APIMessages;
 import com.transactiontransferworker.exceptions.UserAlreadyExistsException;
+import com.transactiontransferworker.exceptions.UserBalanceException;
+import com.transactiontransferworker.exceptions.UserMerchantException;
 import com.transactiontransferworker.utils.AnnotationValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,7 @@ public class APIExceptionHandler {
     @Autowired
     private APIMessages apiMessages;
 
-    @ExceptionHandler({ UserAlreadyExistsException.class })
+    @ExceptionHandler({UserAlreadyExistsException.class, UserMerchantException.class, UserBalanceException.class})
     public ResponseEntity<ResponseDTO<String>> handleException(RuntimeException exception) {
         String keyMessage = AnnotationValue.getClassAnnotationValue(exception.getClass(), ResponseStatus.class, "reason");
 

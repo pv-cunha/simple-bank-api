@@ -1,10 +1,10 @@
 package com.transactiontransferworker.api.controllers;
 
 import com.transactiontransferworker.api.dtos.ResponseDTO;
-import com.transactiontransferworker.api.dtos.UserCreatedDTO;
+import com.transactiontransferworker.api.dtos.TransactionDTO;
+import com.transactiontransferworker.api.dtos.TransactionTransferDTO;
 import com.transactiontransferworker.api.messages.APIMessages;
-import com.transactiontransferworker.api.dtos.UserDTO;
-import com.transactiontransferworker.business.object.UserBO;
+import com.transactiontransferworker.business.object.TransactionBO;
 import com.transactiontransferworker.utils.Constants;
 import com.transactiontransferworker.utils.PathConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = PathConstants.PATH_SIMPLE_BANK_USER)
-public class UserController {
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = PathConstants.PATH_SIMPLE_BANK_TRANSACTION)
+public class TransactionController {
+
     @Autowired
     private APIMessages APIMessages;
+
     @Autowired
-    private UserBO userBO;
+    private TransactionBO transactionBO;
 
-    @PostMapping(PathConstants.PATH_POST_CREATE_USER)
-    public @ResponseBody ResponseDTO<UserCreatedDTO> createNewUser(@RequestBody @Valid UserDTO userDTO) {
+    @PostMapping()
+    public @ResponseBody ResponseDTO<TransactionTransferDTO> createTransferTransaction(@RequestBody @Valid TransactionDTO transactionDTO) {
 
-        UserCreatedDTO userCreatedDTO = userBO.create(userDTO);
+        TransactionTransferDTO transaction = transactionBO.createTransaction(transactionDTO);
 
-        return ResponseDTO.success(APIMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, userCreatedDTO);
+        return ResponseDTO.success(APIMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, transaction);
     }
-
 }

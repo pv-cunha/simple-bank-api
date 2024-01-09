@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,12 +14,12 @@ import java.util.UUID;
 public class TransactionDTO {
 
     @NotBlank
-    private UUID senderId;
+    private String senderId;
 
     @NotBlank
-    private UUID receiverId;
+    private String receiverId;
 
-    @NotBlank
+    @NotNull
     private BigDecimal amount;
 
 }
