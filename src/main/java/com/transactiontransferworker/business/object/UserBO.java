@@ -1,5 +1,6 @@
 package com.transactiontransferworker.business.object;
 
+import com.transactiontransferworker.api.dtos.UserCreatedDTO;
 import com.transactiontransferworker.api.dtos.UserDTO;
 import com.transactiontransferworker.business.service.UserBS;
 import com.transactiontransferworker.converters.UsersConverter;
@@ -21,6 +22,24 @@ public class UserBO {
     @Autowired
     private UsersConverter usersConverter;
 
+    public UserCreatedDTO create(UserDTO userDTO) {
+        User user = usersConverter.convertToUserModel(userDTO);
+
+        userBS.create(user);
+
+        return usersConverter.convertToUserCreatedDTO(userDTO);
+    }
+
+    public void validateTransaction(User sender, BigDecimal amount) {
+        if (sender.getUserType() == UserType.MERCHANT) {
+            throw new UserMerchantException();
+        }
+
+        if (sender.getBalance().compareTo(amount) < 0) {
+            throw new UserBalanceException();
+        }
+    }
+
     public void updateSenderBalance(User user, BigDecimal amount) {
 
         user.setBalance(user.getBalance().subtract(amount));
@@ -35,19 +54,4 @@ public class UserBO {
         userBS.update(user);
     }
 
-    public void create(UserDTO userDTO) {
-        User user = usersConverter.convertToUserModel(userDTO);
-
-        userBS.create(user);
-    }
-
-    public void validateTransaction(User sender, BigDecimal amount) {
-        if (sender.getUserType() == UserType.MERCHANT) {
-            throw new UserMerchantException();
-        }
-
-        if (sender.getBalance().compareTo(amount) < 0) {
-            throw new UserBalanceException();
-        }
-    }
 }
