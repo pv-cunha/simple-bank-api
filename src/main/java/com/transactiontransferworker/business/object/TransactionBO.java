@@ -2,6 +2,7 @@ package com.transactiontransferworker.business.object;
 
 import com.transactiontransferworker.api.dtos.TransactionDTO;
 import com.transactiontransferworker.api.dtos.TransactionTransferDTO;
+import com.transactiontransferworker.api.dtos.UserDepositDTO;
 import com.transactiontransferworker.business.service.AuthorizationBS;
 import com.transactiontransferworker.business.service.NotificationBS;
 import com.transactiontransferworker.business.service.TransactionBS;
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+import java.util.List;
 
 @Service
 public class TransactionBO {
@@ -37,8 +38,8 @@ public class TransactionBO {
     private TransactionConverter transactionConverter;
 
     public TransactionTransferDTO createTransaction(TransactionDTO transactionDTO) {
-        User sender = userBS.getById(UUID.fromString(transactionDTO.getSenderId()));
-        User receiver = userBS.getById(UUID.fromString(transactionDTO.getReceiverId()));
+        User sender = userBS.getByDocument(transactionDTO.getSenderDocument());
+        User receiver = userBS.getByDocument(transactionDTO.getReceiverDocument());
         BigDecimal amount = transactionDTO.getAmount();
 
         userBO.validateTransaction(sender, transactionDTO.getAmount());
@@ -57,6 +58,18 @@ public class TransactionBO {
         notificationBS.sendNotification();
 
         return transactionConverter.convertToTransactionTransferDTO(transaction);
+    }
+
+    public void depositAmount(UserDepositDTO userDepositDTO) {
+        User user = userBS.getByDocument(userDepositDTO.getDocument());
+
+        userBO.updateReceiverBalance(user, userDepositDTO.getDepositAmount());
+    }
+
+    public List<TransactionTransferDTO> getUserTransactionsByDocument(String userId) {
+        List<Transaction> userTransactionsByDocument = transactionBS.getUserTransactionsByDocument(userId);
+
+        return transactionConverter.convertToTransactionTransferDTOList(userTransactionsByDocument);
     }
 
 }

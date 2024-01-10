@@ -1,5 +1,7 @@
 package com.transactiontransferworker.repository.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.transactiontransferworker.repository.enuns.UserType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,17 +10,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -56,11 +50,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+    @JsonIgnore()
     @OneToMany(mappedBy = "sender")
-    private Set<Transaction> sentTransactions = new HashSet<>();
+    private Set<Transaction> sentTransactions;
 
+    @JsonIgnore()
     @OneToMany(mappedBy = "receiver")
-    private Set<Transaction> receivedTransactions = new HashSet<>();
+    private Set<Transaction> receivedTransactions;
 
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
@@ -69,9 +65,5 @@ public class User {
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime updatedAt;
-
-    public boolean isANewUser() {
-        return Objects.isNull(this.getId());
-    }
 
 }

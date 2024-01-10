@@ -6,8 +6,20 @@ import com.transactiontransferworker.repository.models.Transaction;
 import com.transactiontransferworker.repository.models.User;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class TransactionConverter {
+
+    public List<TransactionTransferDTO> convertToTransactionTransferDTOList(List<Transaction> transactionList) {
+
+        return transactionList
+                .stream()
+                .map(this::convertToTransactionTransferDTO)
+                .collect(Collectors.toList());
+    }
 
     public TransactionTransferDTO convertToTransactionTransferDTO(Transaction transaction) {
         TransactionTransferDTO transactionTransferDTO = new TransactionTransferDTO();

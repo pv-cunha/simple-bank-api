@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class TransactionBS {
 
@@ -15,5 +18,11 @@ public class TransactionBS {
     @Transactional
     public void save(Transaction transaction) {
         transactionRepository.save(transaction);
+    }
+
+    public List<Transaction> getUserTransactionsByDocument(String userId) {
+        UUID uuid = UUID.fromString(userId);
+
+        return transactionRepository.getUserTransactionsByUserId(uuid);
     }
 }
