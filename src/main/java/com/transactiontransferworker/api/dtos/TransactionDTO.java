@@ -14,10 +14,10 @@ import java.math.BigDecimal;
 public class TransactionDTO {
 
     @NotBlank
-    private String senderId;
+    private String senderDocument;
 
     @NotBlank
-    private String receiverId;
+    private String receiverDocument;
 
     @NotNull
     private BigDecimal amount;

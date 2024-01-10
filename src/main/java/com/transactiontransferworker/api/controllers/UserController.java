@@ -2,8 +2,8 @@ package com.transactiontransferworker.api.controllers;
 
 import com.transactiontransferworker.api.dtos.ResponseDTO;
 import com.transactiontransferworker.api.dtos.UserCreatedDTO;
-import com.transactiontransferworker.api.messages.APIMessages;
 import com.transactiontransferworker.api.dtos.UserDTO;
+import com.transactiontransferworker.api.messages.APIMessages;
 import com.transactiontransferworker.business.object.UserBO;
 import com.transactiontransferworker.utils.Constants;
 import com.transactiontransferworker.utils.PathConstants;
@@ -21,7 +21,7 @@ import javax.validation.Valid;
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = PathConstants.PATH_SIMPLE_BANK_USER)
 public class UserController {
     @Autowired
-    private APIMessages APIMessages;
+    private APIMessages apiMessages;
     @Autowired
     private UserBO userBO;
 
@@ -30,7 +30,7 @@ public class UserController {
 
         UserCreatedDTO userCreatedDTO = userBO.create(userDTO);
 
-        return ResponseDTO.success(APIMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, userCreatedDTO);
+        return ResponseDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, userCreatedDTO);
     }
 
 }
