@@ -10,4 +10,5 @@ import lombok.Setter;
 public class NotificationResponse {
 
     private boolean message;
+
 }

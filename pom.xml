@@ -11,7 +11,7 @@
 
 	<groupId>com.transactiontransferworker</groupId>
 	<artifactId>transactiontransferworker</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>Transaction Transfer Worker</name>
 	<description>Transaction Transfer Worker</description>
 	<packaging>jar</packaging>
