@@ -9,6 +9,11 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,5 +35,15 @@ public class TransactionBSTest {
 
         transactionBS.save(transaction);
         verify(transactionBS).save(transaction);
+    }
+
+    @Test
+    public void shouldBeAbleToGetUserTransactionsByUserId() {
+        List<Transaction> userTransactionsByDocument = new ArrayList<>();
+
+        when(transactionRepository.getUserTransactionsByUserId(any())).thenReturn(userTransactionsByDocument);
+
+        List<Transaction> bsUserTransactionsByDocument = transactionBS.getUserTransactionsByDocument(UUID.randomUUID().toString());
+        assertNotNull(bsUserTransactionsByDocument);
     }
 }

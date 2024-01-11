@@ -17,9 +17,7 @@ public class NotificationBS {
     public void sendNotification() {
         ResponseEntity<NotificationResponse> response = notificationGateway.sendNotificationRequest();
 
-        HttpStatus statusCode = response.getStatusCode();
-
-        if (!(statusCode == HttpStatus.OK) && !(validateNotificationMessage(response.getBody().isMessage()))) {
+        if (!(response.getStatusCode() == HttpStatus.OK) || validateNotificationMessage(response.getBody().isMessage())) {
             throw new TransactionNotAuthorizedException();
         }
     }

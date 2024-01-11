@@ -19,7 +19,7 @@ public class AuthorizationBS {
 
         HttpStatus statusCode = response.getStatusCode();
 
-        if (!(statusCode == HttpStatus.OK) && !(validateAuthorizationMessage(response.getBody().getMessage()))) {
+        if (!(statusCode == HttpStatus.OK) || !(validateAuthorizationMessage(response.getBody().getMessage()))) {
             throw new TransactionNotAuthorizedException();
         }
     }
