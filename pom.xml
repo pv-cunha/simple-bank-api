@@ -11,7 +11,7 @@
 
 	<groupId>com.transactiontransferworker</groupId>
 	<artifactId>transactiontransferworker</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<name>Transaction Transfer Worker</name>
 	<description>Transaction Transfer Worker</description>
 	<packaging>jar</packaging>
@@ -19,12 +19,18 @@
 	<properties>
 		<java.version>11</java.version>
 		<postgres.version>42.5.1</postgres.version>
+		<jwt.version>4.4.0</jwt.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
 		<dependency>
@@ -37,6 +43,12 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -85,6 +97,12 @@
 			<artifactId>junit-jupiter</artifactId>
 			<version>RELEASE</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${jwt.version}</version>
 		</dependency>
 
 	</dependencies>
