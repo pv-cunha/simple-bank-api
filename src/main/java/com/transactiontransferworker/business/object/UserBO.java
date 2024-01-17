@@ -3,15 +3,18 @@ package com.transactiontransferworker.business.object;
 import com.transactiontransferworker.api.dtos.UserCreatedDTO;
 import com.transactiontransferworker.api.dtos.UserDTO;
 import com.transactiontransferworker.business.service.UserBS;
+import com.transactiontransferworker.business.service.UserPermissionBS;
 import com.transactiontransferworker.converters.UsersConverter;
 import com.transactiontransferworker.exceptions.UserBalanceException;
 import com.transactiontransferworker.exceptions.UserMerchantException;
 import com.transactiontransferworker.repository.enuns.UserType;
+import com.transactiontransferworker.repository.models.Group;
 import com.transactiontransferworker.repository.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class UserBO {
@@ -20,10 +23,17 @@ public class UserBO {
     private UserBS userBS;
 
     @Autowired
+    private UserPermissionBS userPermissionBS;
+
+    @Autowired
     private UsersConverter usersConverter;
 
     public UserCreatedDTO create(UserDTO userDTO) {
         User user = usersConverter.convertToUserModel(userDTO);
+
+        List<Group> groupList = userPermissionBS.getGroupByUserType(user.getUserType());
+
+        user.setPermissionsGroup(groupList);
 
         userBS.create(user);
 
