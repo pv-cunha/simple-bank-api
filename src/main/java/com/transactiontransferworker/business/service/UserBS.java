@@ -45,4 +45,10 @@ public class UserBS {
         return userById.orElseThrow(UserNotFoundException::new);
     }
 
+    public User getByEmail(String email) {
+        Optional<User> userByDocument = userRepository.findUserByEmail(email);
+
+        return userByDocument.orElseThrow(UserNotFoundException::new);
+    }
+
 }

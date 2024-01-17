@@ -1,7 +1,5 @@
 package com.transactiontransferworker.repository.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.transactiontransferworker.repository.enuns.UserType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,8 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -50,13 +47,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    @JsonIgnore()
-    @OneToMany(mappedBy = "sender")
-    private Set<Transaction> sentTransactions;
-
-    @JsonIgnore()
-    @OneToMany(mappedBy = "receiver")
-    private Set<Transaction> receivedTransactions;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private List<Group> permissionsGroup;
 
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")

@@ -7,11 +7,16 @@ import com.transactiontransferworker.business.service.UserBS;
 import com.transactiontransferworker.exceptions.UserNotFoundException;
 import com.transactiontransferworker.repository.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 @Service
-public class UserLoginBO {
+public class UserAuthBO {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -23,7 +28,7 @@ public class UserLoginBO {
     private UserBS userBS;
 
     public UserTokenDTO login(UserLoginDTO userLoginDTO) {
-        User user = userBS.getByDocument(userLoginDTO.getDocument());
+        User user = userBS.getByEmail(userLoginDTO.getEmail());
 
         boolean passwordMatches = passwordEncoder.matches(userLoginDTO.getPassword(), user.getPassword());
 

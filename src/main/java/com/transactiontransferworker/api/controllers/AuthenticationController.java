@@ -4,7 +4,7 @@ import com.transactiontransferworker.api.dtos.ResponseDTO;
 import com.transactiontransferworker.api.dtos.UserLoginDTO;
 import com.transactiontransferworker.api.dtos.UserTokenDTO;
 import com.transactiontransferworker.api.messages.APIMessages;
-import com.transactiontransferworker.business.object.UserLoginBO;
+import com.transactiontransferworker.business.object.UserAuthBO;
 import com.transactiontransferworker.utils.Constants;
 import com.transactiontransferworker.utils.PathConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,12 @@ public class AuthenticationController {
     private APIMessages apiMessages;
 
     @Autowired
-    private UserLoginBO userLoginBO;
+    private UserAuthBO userAuthBO;
 
     @PostMapping(PathConstants.PATH_POST_AUTHENTICATION_LOGIN)
     public @ResponseBody ResponseDTO<UserTokenDTO> login(@RequestBody UserLoginDTO userLoginDTO) {
 
-        UserTokenDTO userTokenDTO = userLoginBO.login(userLoginDTO);
+        UserTokenDTO userTokenDTO = userAuthBO.login(userLoginDTO);
 
         return ResponseDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, userTokenDTO);
     }
