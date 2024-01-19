@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserCreatedDTO {
+public class UserCreateDTO {
 
     private String firstName;
 

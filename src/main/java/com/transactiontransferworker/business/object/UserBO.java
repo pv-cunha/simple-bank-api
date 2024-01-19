@@ -1,6 +1,6 @@
 package com.transactiontransferworker.business.object;
 
-import com.transactiontransferworker.api.dtos.UserCreatedDTO;
+import com.transactiontransferworker.api.dtos.UserCreateDTO;
 import com.transactiontransferworker.api.dtos.UserDTO;
 import com.transactiontransferworker.business.service.UserBS;
 import com.transactiontransferworker.business.service.UserPermissionBS;
@@ -28,8 +28,8 @@ public class UserBO {
     @Autowired
     private UsersConverter usersConverter;
 
-    public UserCreatedDTO create(UserDTO userDTO) {
-        User user = usersConverter.convertToUserModel(userDTO);
+    public UserCreateDTO create(UserDTO userDTO) {
+        User user = usersConverter.convertToUser(userDTO);
 
         List<Group> groupList = userPermissionBS.getGroupByUserType(user.getUserType());
 
@@ -37,7 +37,7 @@ public class UserBO {
 
         userBS.create(user);
 
-        return usersConverter.convertToUserCreatedDTO(userDTO);
+        return usersConverter.convertToUserCreateDTO(userDTO);
     }
 
     public void validateTransaction(User sender, BigDecimal amount) {

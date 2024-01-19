@@ -28,7 +28,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/v1/auth/**").permitAll()
                 .antMatchers("/v1/user/**").permitAll()
-                .antMatchers("/v1/transaction/**").hasAnyAuthority("EDIT_USERS", "GET_TRANSACTIONS", "SEND_TRANSACTIONS")
+                .antMatchers("/v1/transaction/**").hasAnyAuthority(SecurityConstants.GET_TRANSACTIONS, SecurityConstants.SEND_TRANSACTIONS)
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

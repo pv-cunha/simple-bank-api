@@ -1,6 +1,6 @@
 package com.transactiontransferworker.business.object;
 
-import com.transactiontransferworker.api.dtos.UserCreatedDTO;
+import com.transactiontransferworker.api.dtos.UserCreateDTO;
 import com.transactiontransferworker.api.dtos.UserDTO;
 import com.transactiontransferworker.business.service.UserBS;
 import com.transactiontransferworker.converters.UsersConverter;
@@ -39,13 +39,13 @@ public class UserBOTest {
     public void shouldBeAbleToCreateAUser() {
         User user = new User();
         UserDTO userDTO = new UserDTO();
-        UserCreatedDTO userCreatedDTO = new UserCreatedDTO();
+        UserCreateDTO userCreateDTO = new UserCreateDTO();
 
-        when(usersConverter.convertToUserModel(any())).thenReturn(user);
+        when(usersConverter.convertToUser(any())).thenReturn(user);
         when(userBS.create(any())).thenReturn(user);
-        when(usersConverter.convertToUserCreatedDTO(any())).thenReturn(userCreatedDTO);
+        when(usersConverter.convertToUserCreateDTO(any())).thenReturn(userCreateDTO);
 
-        UserCreatedDTO userCreated = userBO.create(userDTO);
+        UserCreateDTO userCreated = userBO.create(userDTO);
 
         assertNotNull(userCreated);
     }

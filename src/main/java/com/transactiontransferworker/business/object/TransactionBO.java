@@ -67,7 +67,7 @@ public class TransactionBO {
     }
 
     public List<TransactionTransferDTO> getUserTransactionsByDocument(String userId) {
-        List<Transaction> userTransactionsByDocument = transactionBS.getUserTransactionsByDocument(userId);
+        List<Transaction> userTransactionsByDocument = transactionBS.getUserTransactionsById(userId);
 
         return transactionConverter.convertToTransactionTransferDTOList(userTransactionsByDocument);
     }
