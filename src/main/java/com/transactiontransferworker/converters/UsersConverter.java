@@ -1,6 +1,6 @@
 package com.transactiontransferworker.converters;
 
-import com.transactiontransferworker.api.dtos.UserCreatedDTO;
+import com.transactiontransferworker.api.dtos.UserCreateDTO;
 import com.transactiontransferworker.api.dtos.UserDTO;
 import com.transactiontransferworker.repository.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class UsersConverter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User convertToUserModel(UserDTO userDTO) {
+    public User convertToUser(UserDTO userDTO) {
         User user = new User();
 
         user.setFirstName(userDTO.getFirstName());
@@ -30,15 +30,15 @@ public class UsersConverter {
         return user;
     }
 
-    public UserCreatedDTO convertToUserCreatedDTO(UserDTO userDTO) {
-        UserCreatedDTO userCreatedDTO = new UserCreatedDTO();
+    public UserCreateDTO convertToUserCreateDTO(UserDTO userDTO) {
+        UserCreateDTO userCreateDTO = new UserCreateDTO();
 
-        userCreatedDTO.setFirstName(userDTO.getFirstName());
-        userCreatedDTO.setLastName(userDTO.getLastName());
-        userCreatedDTO.setDocument(userDTO.getDocument());
-        userCreatedDTO.setEmail(userDTO.getEmail());
+        userCreateDTO.setFirstName(userDTO.getFirstName());
+        userCreateDTO.setLastName(userDTO.getLastName());
+        userCreateDTO.setDocument(userDTO.getDocument());
+        userCreateDTO.setEmail(userDTO.getEmail());
 
-        return userCreatedDTO;
+        return userCreateDTO;
     }
 
 }

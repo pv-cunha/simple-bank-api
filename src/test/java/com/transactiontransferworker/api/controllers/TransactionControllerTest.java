@@ -1,6 +1,6 @@
 package com.transactiontransferworker.api.controllers;
 
-import com.transactiontransferworker.api.dtos.ResponseDTO;
+import com.transactiontransferworker.api.dtos.ResponseDefaultDTO;
 import com.transactiontransferworker.api.dtos.TransactionDTO;
 import com.transactiontransferworker.api.dtos.TransactionTransferDTO;
 import com.transactiontransferworker.api.dtos.UserDepositDTO;
@@ -39,7 +39,7 @@ public class TransactionControllerTest {
 
         when(transactionBO.createTransaction(any())).thenReturn(transactionTransferDTO);
 
-        ResponseDTO<TransactionTransferDTO> transferTransaction = transactionController.createTransferTransaction(transactionDTO);
+        ResponseDefaultDTO<TransactionTransferDTO> transferTransaction = transactionController.transfer(transactionDTO);
 
         assertNotNull(transferTransaction);
     }
@@ -50,9 +50,9 @@ public class TransactionControllerTest {
 
         doNothing().when(transactionBO).depositAmount(any());
 
-        ResponseDTO<Object> objectResponseDTO = transactionController.depositAmount(userDepositDTO);
+        ResponseDefaultDTO<Object> objectResponseDefaultDTO = transactionController.deposit(userDepositDTO);
 
-        assertNotNull(objectResponseDTO);
+        assertNotNull(objectResponseDefaultDTO);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class TransactionControllerTest {
 
         when(transactionBO.getUserTransactionsByDocument(any())).thenReturn(userTransactionsByDocument);
 
-        ResponseDTO<List<TransactionTransferDTO>> transactions = transactionController.getUserTransactions("id");
+        ResponseDefaultDTO<List<TransactionTransferDTO>> transactions = transactionController.getTransactions("id");
 
         assertNotNull(transactions);
     }

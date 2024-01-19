@@ -1,7 +1,7 @@
 package com.transactiontransferworker.api.controllers;
 
-import com.transactiontransferworker.api.dtos.ResponseDTO;
-import com.transactiontransferworker.api.dtos.UserCreatedDTO;
+import com.transactiontransferworker.api.dtos.ResponseDefaultDTO;
+import com.transactiontransferworker.api.dtos.UserCreateDTO;
 import com.transactiontransferworker.api.dtos.UserDTO;
 import com.transactiontransferworker.api.messages.APIMessages;
 import com.transactiontransferworker.business.object.UserBO;
@@ -30,11 +30,11 @@ public class UserControllerTest {
     @Test
     public void shouldBeAbleToCreateANewUser() {
         UserDTO userDTO = new UserDTO();
-        UserCreatedDTO userCreatedDTO = new UserCreatedDTO();
+        UserCreateDTO userCreateDTO = new UserCreateDTO();
 
-        when(userBO.create(any())).thenReturn(userCreatedDTO);
+        when(userBO.create(any())).thenReturn(userCreateDTO);
 
-        ResponseDTO<UserCreatedDTO> newUser = userController.createNewUser(userDTO);
+        ResponseDefaultDTO<UserCreateDTO> newUser = userController.create(userDTO);
 
         assertNotNull(newUser);
     }

@@ -94,7 +94,7 @@ public class TransactionBOTest {
         List<Transaction> transactionList = new ArrayList<>();
         List<TransactionTransferDTO> transferDTOList = new ArrayList<>();
 
-        when(transactionBS.getUserTransactionsByDocument(any())).thenReturn(transactionList);
+        when(transactionBS.getUserTransactionsById(any())).thenReturn(transactionList);
         when(transactionConverter.convertToTransactionTransferDTOList(any())).thenReturn(transferDTOList);
 
         List<TransactionTransferDTO> userTransactionsByDocument = transactionBO.getUserTransactionsByDocument(UUID.randomUUID().toString());

@@ -5,7 +5,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 @Getter
-public class ResponseDTO<T> {
+public class ResponseDefaultDTO<T> {
 
     private final String message;
 
@@ -16,18 +16,18 @@ public class ResponseDTO<T> {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private final LocalDateTime timestamp;
 
-    public ResponseDTO(String message, String code, T data, LocalDateTime timestamp) {
+    public ResponseDefaultDTO(String message, String code, T data, LocalDateTime timestamp) {
         this.message = message;
         this.code = code;
         this.data = data;
         this.timestamp = timestamp;
     }
 
-    public static <T> ResponseDTO<T> success(String message, String code, T data) {
-        return new ResponseDTO<>(message, code, data, LocalDateTime.now());
+    public static <T> ResponseDefaultDTO<T> success(String message, String code, T data) {
+        return new ResponseDefaultDTO<>(message, code, data, LocalDateTime.now());
     }
 
-    public static <T> ResponseDTO<T> error(String message, String code, T data) {
-        return new ResponseDTO<>(message, code, data, LocalDateTime.now());
+    public static <T> ResponseDefaultDTO<T> error(String message, String code, T data) {
+        return new ResponseDefaultDTO<>(message, code, data, LocalDateTime.now());
     }
 }

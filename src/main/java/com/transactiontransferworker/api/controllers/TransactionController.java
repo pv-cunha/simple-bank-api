@@ -1,6 +1,6 @@
 package com.transactiontransferworker.api.controllers;
 
-import com.transactiontransferworker.api.dtos.ResponseDTO;
+import com.transactiontransferworker.api.dtos.ResponseDefaultDTO;
 import com.transactiontransferworker.api.dtos.TransactionDTO;
 import com.transactiontransferworker.api.dtos.TransactionTransferDTO;
 import com.transactiontransferworker.api.dtos.UserDepositDTO;
@@ -10,7 +10,13 @@ import com.transactiontransferworker.utils.Constants;
 import com.transactiontransferworker.utils.PathConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,26 +32,26 @@ public class TransactionController {
     private TransactionBO transactionBO;
 
     @PostMapping()
-    public @ResponseBody ResponseDTO<TransactionTransferDTO> createTransferTransaction(@RequestBody @Valid TransactionDTO transactionDTO) {
+    public @ResponseBody ResponseDefaultDTO<TransactionTransferDTO> transfer(@RequestBody @Valid TransactionDTO transactionDTO) {
 
         TransactionTransferDTO transaction = transactionBO.createTransaction(transactionDTO);
 
-        return ResponseDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, transaction);
+        return ResponseDefaultDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, transaction);
     }
 
     @PostMapping(PathConstants.PATH_POST_DEPOSIT_TRANSACTION)
-    public @ResponseBody ResponseDTO<Object> depositAmount(@RequestBody @Valid UserDepositDTO userDepositDTO) {
+    public @ResponseBody ResponseDefaultDTO<Object> deposit(@RequestBody @Valid UserDepositDTO userDepositDTO) {
 
         transactionBO.depositAmount(userDepositDTO);
 
-        return ResponseDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, "ok");
+        return ResponseDefaultDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, "ok");
     }
 
     @GetMapping()
-    public @ResponseBody ResponseDTO<List<TransactionTransferDTO>> getUserTransactions(@RequestParam String userID) {
+    public @ResponseBody ResponseDefaultDTO<List<TransactionTransferDTO>> getTransactions(@RequestParam String userID) {
 
         List<TransactionTransferDTO> userTransactionsByDocument = transactionBO.getUserTransactionsByDocument(userID);
 
-        return ResponseDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, userTransactionsByDocument);
+        return ResponseDefaultDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, userTransactionsByDocument);
     }
 }

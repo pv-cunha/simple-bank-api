@@ -20,7 +20,7 @@ public class TransactionBS {
         transactionRepository.save(transaction);
     }
 
-    public List<Transaction> getUserTransactionsByDocument(String userId) {
+    public List<Transaction> getUserTransactionsById(String userId) {
         UUID uuid = UUID.fromString(userId);
 
         return transactionRepository.getUserTransactionsByUserId(uuid);

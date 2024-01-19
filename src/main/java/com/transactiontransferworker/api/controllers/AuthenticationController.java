@@ -1,6 +1,6 @@
 package com.transactiontransferworker.api.controllers;
 
-import com.transactiontransferworker.api.dtos.ResponseDTO;
+import com.transactiontransferworker.api.dtos.ResponseDefaultDTO;
 import com.transactiontransferworker.api.dtos.UserLoginDTO;
 import com.transactiontransferworker.api.dtos.UserTokenDTO;
 import com.transactiontransferworker.api.messages.APIMessages;
@@ -26,11 +26,11 @@ public class AuthenticationController {
     private UserAuthBO userAuthBO;
 
     @PostMapping(PathConstants.PATH_POST_AUTHENTICATION_LOGIN)
-    public @ResponseBody ResponseDTO<UserTokenDTO> login(@RequestBody UserLoginDTO userLoginDTO) {
+    public @ResponseBody ResponseDefaultDTO<UserTokenDTO> login(@RequestBody UserLoginDTO userLoginDTO) {
 
         UserTokenDTO userTokenDTO = userAuthBO.login(userLoginDTO);
 
-        return ResponseDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, userTokenDTO);
+        return ResponseDefaultDTO.success(apiMessages.getSuccessFullMessage(), Constants.SUCCESS_CODE, userTokenDTO);
     }
 
 }

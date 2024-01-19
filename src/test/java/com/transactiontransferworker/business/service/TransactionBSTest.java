@@ -43,7 +43,7 @@ public class TransactionBSTest {
 
         when(transactionRepository.getUserTransactionsByUserId(any())).thenReturn(userTransactionsByDocument);
 
-        List<Transaction> bsUserTransactionsByDocument = transactionBS.getUserTransactionsByDocument(UUID.randomUUID().toString());
+        List<Transaction> bsUserTransactionsByDocument = transactionBS.getUserTransactionsById(UUID.randomUUID().toString());
         assertNotNull(bsUserTransactionsByDocument);
     }
 }
