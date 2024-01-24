@@ -26,6 +26,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                 .antMatchers("/v1/auth/**").permitAll()
                 .antMatchers("/v1/user/**").permitAll()
                 .antMatchers("/v1/transaction/**").hasAnyAuthority(SecurityConstants.GET_TRANSACTIONS, SecurityConstants.SEND_TRANSACTIONS)
